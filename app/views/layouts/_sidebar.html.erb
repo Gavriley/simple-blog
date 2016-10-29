@@ -1,0 +1,12 @@
+<div class="col-md-3">
+	<% if Category.exists? %>		    
+		<ul class="list-group"> 
+			<% for category in Category.parent_categories.includes(:children) %>
+				<li class="list-group-item"><%= link_to category.name, category %></li>
+					<% for sub_category in category.children %>
+						<li class="list-group-item"><%= link_to sub_category.name, sub_category, class: :sub_category %> </li>
+					<% end %>
+			<% end %>
+		</ul>
+	<% end %>
+</div>						

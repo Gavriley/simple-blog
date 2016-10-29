@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content=("text/html; charset=UTF-8") http-equiv="Content-Type" />
+    <title>SimpleBlog</title>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %> 
+    <%= csrf_meta_tags %>
+  </head>
+  <body>
+  	<%= render 'layouts/menu' %>
+  	<div class="container">
+      <% if notice %>
+          <p id="notice" class="alert alert-success"><%= notice %></p>
+      <% end %>    
+    	<%= yield %>
+    </div>
+    <%= javascript_include_tag "calendar" if controller_name == "posts" && (action_name == "edit" || action_name == "update") %> 
+  </body>
+</html>      
+   

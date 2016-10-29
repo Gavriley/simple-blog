@@ -1,0 +1,42 @@
+<div class="row">
+  <div class="col-md-3">
+    <h2>Редагувати</h2>
+
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+      <%= devise_error_messages! %>
+      
+      <div class="form-group">
+        <%= f.text_field :login, autofocus: true, class: 'form-control' %>
+      </div>
+
+      <div class="form-group">
+        <%= f.email_field :email, class: 'form-control' %>
+      </div>
+
+      <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+        <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+      <% end %>
+
+      <div class="form-group">
+        <i>(Залиште поля пустими<br /> якщо не хочете міняти)</i><br />
+        <%= f.password_field :password, autocomplete: "off", placeholder: "Введіть пароль", class: 'form-control' %>
+        <% if @minimum_password_length %>
+          <em><%= @minimum_password_length %> символів мінімум</em>
+        <% end %>
+      </div>
+
+      <div class="form-group">
+        <%= f.password_field :password_confirmation, autocomplete: "off", placeholder: "Повторіть пароль", class: 'form-control' %>
+      </div>
+
+      <div class="form-group">
+        <i>(Введіть теперішній пароль<br /> для зміни інформації)</i><br />
+        <%= f.password_field :current_password, autocomplete: "off", placeholder: "Теперішній пароль", class: 'form-control' %>
+      </div>
+
+      <div class="form-group">
+        <%= f.submit "Обновити", class: "btn btn-default" %>
+      </div>
+    <% end %>
+  </div>  
+</div>

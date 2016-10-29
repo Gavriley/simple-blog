@@ -1,0 +1,54 @@
+.personal_post_title {
+	font-size: 18px;
+}
+
+.personal_edit_tools {
+	float: right;
+}
+
+.show_calendar {
+	border: 1px solid ;
+	border-radius: 7px;
+	padding: 0px 10px 10px 10px; 
+	width: 47%;
+
+	.calendar {
+		/*border-collapse: collapse;*/
+		background-color: #A16581;
+		color: #fff;
+
+		td, th {
+		  border: 1px solid white;
+		  padding: 3px;
+		  text-align: center;
+		}	
+		
+		.day {
+			background-color: red;
+		}
+
+		th {
+		  font-weight: bold;
+		  background-color: #000;
+		  color: grey;
+		}
+
+		span {
+			cursor: pointer;
+		}
+
+		.calendar-month {
+			float: left;
+			padding-left: 15px; 
+		}
+
+		.calendar-year {
+			float: right;
+			padding-right: 15px; 
+		}
+	}
+
+	#show_calendar {
+	  display: inline-block;
+	}
+}	

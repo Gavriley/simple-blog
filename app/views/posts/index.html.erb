@@ -1,0 +1,19 @@
+<div class="row">
+	<div class="col-md-9">
+		<table class="table table-striped">
+			<% @posts.each do |post| %>	
+			  <tr>
+			    <td>
+			      <h3><%= link_to post.title, post %><em style="font-size: 14px"><%= ' <Опублікував: ' + post.user.login + '>' %></em></h3> 
+			      <% if post.thumbnail.exists? %>
+							<%= image_tag post.thumbnail.url(:medium), class: 'img-thumbnail post_thumbnail' %>		
+						<% end %>	
+			      <p><%= truncate(strip_tags(post.content), length: 600)	%></p>
+			    </td>
+			  </tr>  
+			<% end %>  
+		</table>
+		<%= paginate @posts %>
+	</div>	
+	<%= render 'layouts/sidebar' %>	
+</div>	

@@ -1,0 +1,16 @@
+h2 Вхід
+= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+  .row.col-md-3
+    .form-group
+      = f.email_field :email, autofocus: true, placeholder: "Введіть e-mail", class: "form-control"
+    .form-group
+      = f.password_field :password, autocomplete: "off", placeholder: "Введіть пароль", class: "form-control"
+    .checkbox
+      label
+        = f.check_box :remember_me
+        = "Запамятати мене"
+    .form-group    
+      = f.submit "Вхід", class: "btn btn-default", style: "width: 40%" 
+      = link_to "Реєстрація", new_registration_path(resource_name), class: "btn btn-default", style: "width: 60%"
+    .form-group
+      = link_to "Забули пароль?", new_password_path(resource_name), class: "btn btn-default", style: "width: 100%"   

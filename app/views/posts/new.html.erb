@@ -1,0 +1,56 @@
+<%= form_for @post, html: { multipart: true, method: :post } do |f|	%>
+	<% if @post.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@post.errors.count, "error") %> prohibited this product from being saved:</h2>
+
+      <ul>
+      <% @post.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+	<div class="row">
+		<div class="col-md-6">
+			<%= link_to 'Повернутися до блогу', posts_path, class: 'btn btn-default'	%>
+			<h3>Новий запис</h3>
+			<div class="form-group">
+				<%= f.text_field :title, placeholder: 'Заголовок', class: 'form-control' %>
+			</div>	
+			<div class="form-group">
+				<%= f.text_area :content, class: 'form-control', rows: 6 %>	
+			</div>	
+
+			<div class="form-group">
+				<label class="btn btn-default btn-file">Виберіть мініатюру 
+					<%= f.file_field :thumbnail%>	
+				</label>	
+			</div>
+
+			<div class="form-group">
+				<%= f.submit 'Створити запис', class: 'btn btn-success'  %>
+			</div>	
+		</div>
+		<div class="col-md-4 col-md-offset-2">		
+			<ul class="list-group"> 
+				<% for category in Category.parent_categories %>
+					<li class="list-group-item" >
+						<%= check_box_tag "post[category_ids][]", category.id, @post.categories.include?(category) %>
+						<%= category.name %>
+						<% if category.has_children? %>
+							<% for sub_category in category.children %>
+								<li class="list-group-item">
+									<span class="sub_category">
+										<%= check_box_tag "post[category_ids][]", sub_category.id, @post.categories.include?(sub_category) %>
+										<%=sub_category.name %>
+									</span>
+								</li>
+							<% end %>		
+						<% end %>		
+					</li>
+				<% end %>		
+			</ul>	
+		</div>								
+	</div>
+<% end %>										

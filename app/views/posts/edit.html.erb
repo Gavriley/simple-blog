@@ -1,0 +1,76 @@
+<%= form_for @post, method: :post, html: { multipart: true } do |f|	%>
+	<div class="row">
+		<div class="col-md-6">
+			<%= link_to 'Повернутися до блогу', posts_path, class: 'btn btn-default'	%>
+			<h3>Редагувати запис</h3>
+
+			<% if @post.errors.any? %>
+		    <div id="error_explanation" class="error_block">
+		      <h4>Виправте наступні помилки:</h4>
+
+		      <ul>
+		      <% @post.errors.messages.each do |key, message| %>
+		        <li><%= message[0] %></li>
+		      <% end %>
+		      </ul>
+		    </div>
+		  <% end %>
+	
+			<div class="form-group">
+				<%= f.text_field :title, placeholder: 'Заголовок', class: 'form-control' %>
+			</div>	
+			
+			<div class="form-group">
+				<%= f.text_area :content, class: 'form-control', rows: 6 %>	
+			</div>	
+
+			<div class="form-group">
+				Дата створення: <span id="created_date"></span>
+				<div>
+					<div id="show_calendar"></div>
+				</div>
+			</div>	
+			
+			<div class="form-group">
+				<%= f.hidden_field :created_at, :value => @post.created_at.strftime("%d/%m/%Y %H:%M:%S") %>
+			</div>
+			
+			<% if @post.thumbnail.exists? %>
+				<div class="form-group">
+					<label><%= check_box_tag 'delete_image', true %> Видалити зображення</label>
+				</div>
+			<% end %>
+
+			<div class="form-group">
+				<label class="btn btn-default btn-file">Виберіть мініатюру <%= f.file_field :thumbnail%> </label>	
+			</div>
+
+			<div class="form-group">
+				<%= f.submit 'Редагувати запис', class: 'btn btn-success'  %>
+			</div>	
+		</div>
+
+		<div class="col-md-4 col-md-offset-2">		
+			<ul class="list-group"> 
+				<% for category in Category.parent_categories %>
+					<li class="list-group-item" >
+						<%= check_box_tag "post[category_ids][]", category.id, @post.categories.include?(category) %>
+						<%= category.name %>
+						<% if category.has_children? %>
+							<% for sub_category in category.children %>
+								<li class="list-group-item">
+									<span class="sub_category">
+										<%= check_box_tag "post[category_ids][]", sub_category.id, @post.categories.include?(sub_category) %>
+										<%=sub_category.name %>
+									</span>
+								</li>
+							<% end %>		
+						<% end %>		
+					</li>
+				<% end %>		
+			</ul>	
+		</div>								
+	</div>			
+<% end %>		
+
+										

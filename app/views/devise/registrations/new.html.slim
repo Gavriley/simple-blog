@@ -1,0 +1,15 @@
+h2 Реєстрація
+= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
+  = devise_error_messages!
+  .row.col-md-3
+    .form-group
+      = f.text_field :login, autofocus: true, placeholder: "Введіть логін", class: "form-control"
+    .form-group
+      = f.email_field :email, placeholder: "Введіть e-mail", class: "form-control"
+    .form-group
+      = f.password_field :password, autocomplete: "off", placeholder: "Введіть пароль", class: "form-control"
+    .form-group
+      = f.password_field :password_confirmation, autocomplete: "off", placeholder: "Повторіть пароль", class: "form-control"
+    .form-group
+      = f.submit "Зареєструватись", class: "btn btn-default", style: "width: 60%" 
+      = link_to "Вхід", new_session_path(resource_name), class: "btn btn-default", style: "width: 40%"

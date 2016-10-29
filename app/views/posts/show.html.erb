@@ -1,0 +1,19 @@
+<%= link_to 'Повернутися до блогу', posts_path, class: 'btn btn-success' %>
+<%= link_to 'Редагувати', edit_post_path(@post), class: 'btn btn-primary' %>
+<%= link_to 'Видалити', @post, method: :delete, data: { confirm: "Ви впевнені?" }, class: 'btn btn-danger' %>
+
+<h3> <%= @post.title %><em style="font-size: 14px"><%= '<Опублікував: ' + @post.user.login + '>' %></em></h3>
+<% if @post.has_categories? %>
+	<em> 
+		<strong>Категорії: </strong> 
+		<%= link_to @post.categories.first.name, @post.categories.first %>
+		<% for category in @post.categories.offset(1) %>
+			, <%= link_to category.name, category %>
+		<% end %>
+	</em>		
+	<hr>
+<% end %>	
+<% if @post.thumbnail.exists? %>
+	<%= image_tag @post.thumbnail.url(:large), class: 'img-thumbnail post_thumbnail' %>		
+<% end %>	
+<p><%= @post.content %></p>
