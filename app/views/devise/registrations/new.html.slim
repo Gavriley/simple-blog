@@ -7,6 +7,8 @@ h2 Реєстрація
     .form-group
       = f.email_field :email, placeholder: "Введіть e-mail", class: "form-control"
     .form-group
+      = f.text_field :blog_name, placeholder: 'Введіть назву блогу', class: 'form-control'  
+    .form-group
       = f.password_field :password, autocomplete: "off", placeholder: "Введіть пароль", class: "form-control"
     .form-group
       = f.password_field :password_confirmation, autocomplete: "off", placeholder: "Повторіть пароль", class: "form-control"

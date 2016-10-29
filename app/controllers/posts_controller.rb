@@ -2,7 +2,7 @@ class PostsController < ApplicationController
 	before_action :check_for_query, only: :index
 	before_action :set_post, only: [:show, :edit, :update, :destroy]
 	load_and_authorize_resource
-	rescue_from ActiveRecord::RecordNotFound, with: -> { redirect_to root_path, notice: "Такої записі не існує." } 
+	# rescue_from ActiveRecord::RecordNotFound, with: -> { redirect_to root_path, notice: "Такої записі не існує." } 
 
 	def index
 		# current_user.update_attribute :admin, true
@@ -11,7 +11,9 @@ class PostsController < ApplicationController
 	end
 	
 	def personal
-		@posts = current_user.posts.latest.page(params[:page])  
+		@user = User.find(params[:account])
+		@title = @user.blog_name
+		@posts = @user.posts.latest.page(params[:page])  
 	end	
 
 	def search
@@ -24,11 +26,14 @@ class PostsController < ApplicationController
 	end
 
 	def new
+		@title = "Новий запис"
 		@post = Post.new
+		@categories = current_user.categories
 	end
 
 	def edit
-		
+		@title = "Редагувати #{@post.title}"
+		@categories = current_user.categories
 	end
 
 	def create

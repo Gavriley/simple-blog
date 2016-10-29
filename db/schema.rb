@@ -17,12 +17,12 @@ ActiveRecord::Schema.define(version: 20161019154051) do
   enable_extension "plpgsql"
 
   create_table "categories", force: :cascade do |t|
-    t.string  "name",      default: "", null: false
-    t.integer "parent_id", default: 0
+    t.string  "name",    default: "", null: false
+    t.integer "user_id"
   end
 
   add_index "categories", ["name"], name: "index_categories_on_name", unique: true, using: :btree
-  add_index "categories", ["parent_id"], name: "index_categories_on_parent_id", using: :btree
+  add_index "categories", ["user_id"], name: "index_categories_on_user_id", using: :btree
 
   create_table "categories_posts", force: :cascade do |t|
     t.integer "post_id"
@@ -33,11 +33,12 @@ ActiveRecord::Schema.define(version: 20161019154051) do
   add_index "categories_posts", ["post_id"], name: "index_categories_posts_on_post_id", using: :btree
 
   create_table "posts", force: :cascade do |t|
-    t.string   "title",                  default: "", null: false
+    t.string   "title",                  default: "",   null: false
     t.text     "content",                default: ""
+    t.boolean  "published",              default: true
     t.integer  "user_id"
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
     t.string   "thumbnail_file_name"
     t.string   "thumbnail_content_type"
     t.integer  "thumbnail_file_size"
@@ -55,6 +56,7 @@ ActiveRecord::Schema.define(version: 20161019154051) do
     t.string   "login",                  default: "", null: false
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
+    t.string   "blog_name",              default: "", null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -63,16 +65,11 @@ ActiveRecord::Schema.define(version: 20161019154051) do
     t.datetime "last_sign_in_at"
     t.inet     "current_sign_in_ip"
     t.inet     "last_sign_in_ip"
-    t.string   "confirmation_token"
-    t.datetime "confirmed_at"
-    t.datetime "confirmation_sent_at"
-    t.string   "unconfirmed_email"
     t.integer  "role_id",                default: 0
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
   end
 
-  add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["login"], name: "index_users_on_login", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree

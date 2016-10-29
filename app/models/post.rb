@@ -5,6 +5,7 @@ class Post < ActiveRecord::Base
 		presence: { message: "Заповніть поле заголовок"  }
 		
 	scope :latest, -> { order(created_at: :desc).includes(:user) }
+	scope :published, -> { where(:published => true) }
 	belongs_to :user
 	has_and_belongs_to_many :categories
 

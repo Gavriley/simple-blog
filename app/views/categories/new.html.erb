@@ -1,0 +1,25 @@
+<%= form_for @category, html: { method: :post } do |f|	%>
+	<% if @category.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@category.errors.count, "error") %> prohibited this product from being saved:</h2>
+
+      <ul>
+      <% @category.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+	<div class="row">
+		<div class="col-md-6">
+			<h3>Нова категорія</h3>
+			<div class="form-group">
+				<%= f.text_field :name, placeholder: 'Назва категорії', class: 'form-control' %>
+			</div>	
+			<div class="form-group">
+				<%= f.submit 'Створити категорію', class: 'btn btn-success'  %>
+			</div>	
+		</div>							
+	</div>
+<% end %>										

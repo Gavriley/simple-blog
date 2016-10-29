@@ -2,11 +2,10 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
-    File.open('/home/darkness/insilico/log.txt', 'w') { |f| f << "QWERTY" }
-    user ||= User.new # guest user (not logged in)
+    user ||= User.new
     
     if user.role.try(:name) == 'admin'
-      can :read, Post
+      can :manage, Post
     else
       can :read, Post
       can :personal, Post

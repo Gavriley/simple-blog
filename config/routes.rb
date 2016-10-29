@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   resources :posts do
     collection do
       get 'search'
-      get 'personal'
+      get 'personal/:account' => "posts#personal", as: 'personal'
     end
   end
   

@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
 	
 	include CanCan::ControllerAdditions
   protect_from_forgery with: :exception
-  rescue_from ActiveRecord::RecordNotFound, with: -> { redirect_to root_path, notice: "Такої сторінки не існує." } 
+  # rescue_from ActiveRecord::RecordNotFound, with: -> { redirect_to root_path, notice: "Такої сторінки не існує." } 
 
   rescue_from CanCan::AccessDenied, with: -> { redirect_to root_url, :notice => "Недостатньо прав для здійснення даної дії" }
 
